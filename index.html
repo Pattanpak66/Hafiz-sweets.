@@ -1,1 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hafiz Sweets Lal Khooh Official App</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Image Preloading for Slow Networks -->
+    <link rel="preload" as="image" href="https://i.ibb.co/8nkjF6Lw/IMG-20260617-123603-054.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/Kxss75Cv/IMG-20260617-123621-719.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/bgkW71cb/IMG-20260617-124110-378.jpg">
+    <link rel="preload" as="image" href="https://i.ibb.co/NdZ2fz1p/IMG-20260617-123446-821.jpg">
 
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --text-color: #2d3436;
+            --accent-color: #e67e22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            padding-bottom: 80px; /* Space for the bottom banner */
+        }
+
+        /* Ambient Background Glow Lights */
+        .light-glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            background: rgba(230, 126, 34, 0.25);
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: -1;
+        }
+        .glow-1 { top: -60px; left: -60px; }
+        .glow-2 { bottom: 100px; right: -60px; }
+
+        /* Premium Glass Card Style */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+            padding: 25px;
+            width: 92%;
+            max-width: 450px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        /* Animated Header Action Button */
+        .top-anim-btn {
+            position: fixed;
+            top: 15px;
+            z-index: 100;
+            background: linear-gradient(45deg, #e67e22, #f39c12);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.35);
+            animation: pulse-effect 2s infinite;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes pulse-effect {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(230, 126, 34, 0.35); }
+            50% { transform: scale(1.04); box-shadow: 0 4px 25px rgba(230, 126, 34, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 4px 15px rgba(230, 126, 34, 0.35); }
+        }
+
+        /* Setup Guide Overlay (Popup) */
+        .guide-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .guide-box h2 {
+            color: #111;
+            margin-bottom: 12px;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        /* Fixed container size for images to prevent structural layout shifting */
+        .img-container {
+            width: 100%;
+            height: 230px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .guide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Control Navigation Panel */
+        .control-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-back { background: rgba(0,0,0,0.08); color: var(--text-color); }
+        .btn-next { background: #2ecc71; color: white; flex-grow: 1; justify-content: center; }
+        .btn-next:hover { background: #27ae60; }
+
+        /* Main Screen Presentation Layout */
+        .app-content {
+            margin-top: 75px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: white;
+            padding: 4px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border: 2px solid rgba(255,255,255,0.6);
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        .app-title {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .description-text {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #4f5f6f;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.35);
+            padding: 12px 8px;
+            border-radius: 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .feature-item i {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* High-Visibility Interactive Buttons */
+        .download-main-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #2980b9, #3498db);
+            color: white;
+            text-decoration: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 16px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+            transition: 0.2s transform;
+        }
+
+        .download-main-btn:hover { transform: translateY(-1px); }
+
+        /* Stationary Inline Static Guide (Embedded Bottom Section) */
+        .static-guide-section {
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .static-step-card {
+            background: rgba(255,255,255,0.25);
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .static-step-card h4 {
+            font-size: 0.9rem;
+            color: #111;
+            margin-bottom: 4px;
+        }
+
+        .static-step-card p {
+            font-size: 0.82rem;
+            color: #555;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .static-img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Persistent Premium Bottom Signature Banner */
+        .brand-footer-banner {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 430px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            z-index: 99;
+            font-size: 0.88rem;
+            color: #555;
+            letter-spacing: 0.3px;
+        }
+
+        .brand-footer-banner strong {
+            color: #111;
+            font-weight: 700;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="light-glow glow-1"></div>
+    <div class="light-glow glow-2"></div>
+
+    <!-- Sticky Navigation Trigger Button -->
+    <button class="top-anim-btn" onclick="goToDownloadArea()">
+        <i class="fa-solid fa-arrow-down-long"></i> Download Now
+    </button>
+
+    <!-- 1. Interactive Popup Loader Instructions Overlay -->
+    <div class="guide-overlay" id="popupGuideManager">
+        <div class="glass-card guide-box">
+            <div style="display:flex; justify-content: space-between; font-size:0.75rem; font-weight:700; color:#7f8c8d; text-transform:uppercase;">
+                <span>Installation Guide</span>
+                <span id="stepCounterMetric">1 / 4</span>
+            </div>
+            <hr style="border:0; height:1px; background:rgba(0,0,0,0.08); margin:8px 0 12px 0;">
+            
+            <div id="dynamicStageRender">
+                <!-- Rendered dynamically by javascript logic -->
+            </div>
+
+            <div class="control-panel">
+                <button class="nav-btn btn-back" id="backBtnAction" onclick="navigatePreviousStep()"><i class="fa-solid fa-chevron-left"></i> Back</button>
+                <button class="nav-btn btn-next" id="nextBtnAction" onclick="navigateNextStep()">Next Step <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Main Interface Presentation Wrapper -->
+    <div class="app-content">
+        
+        <!-- Application Overview Card -->
+        <div class="glass-card">
+            <img src="https://i.ibb.co/gZRBSC98/images-1.jpg" alt="Hafiz Sweets Logo" class="logo-circle">
+            <h1 class="app-title">Hafiz Sweets Lal Khooh</h1>
+            <p style="color: var(--accent-color); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px;">Official App</p>
+            
+            <p class="description-text">
+                Welcome to the official app of <strong>Hafiz Sweets Lal Khooh</strong>. Through this application, you can easily explore all our shop locations, view our complete premium sweets & items menu, submit feedback or complaints directly, and effortlessly place your orders to the nearest branch.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-item"><i class="fa-solid fa-map-location-dot"></i>Shops Location</div>
+                <div class="feature-item"><i class="fa-solid fa-cookie-bite"></i>Items & Menu</div>
+                <div class="feature-item"><i class="fa-solid fa-paper-plane"></i>Direct Order</div>
+            </div>
+
+            <div id="targetDownloadAnchor" style="padding-top: 10px;">
+                <a href="https://www.mediafire.com/file/gbosvh9e10orjvb/Hafiz+Sweets+Lal+Khooh_1.0.apk/file" target="_blank" class="download-main-btn">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK Now
+                </a>
+            </div>
+        </div>
+
+        <!-- 3. Fixed Embedded Base Installation Reference Guide -->
+        <div class="glass-card static-guide-section">
+            <h3 style="font-size: 1.1rem; text-align: center; color: #2c3e50; margin-bottom: 5px;"><i class="fa-solid fa-layer-group"></i> Step-by-Step Installation Guide</h3>
+            <p style="font-size: 0.8rem; text-align: center; color: #666; margin-bottom: 10px;">Follow these simple steps below if you face any security alerts during setup:</p>
+            
+            <!-- Step 1 Card -->
+            <div class="static-step-card">
+                <h4>Step 1: Initiation</h4>
+                <p>Click the main download link and proceed to select the official file labeled <strong>Hafiz sweets lal khooh.1</strong>.</p>
+                <img src="https://i.ibb.co/8nkjF6Lw/IMG-20260617-123603-054.jpg" class="static-img" alt="Step 1 Preview" loading="lazy">
+            </div>
+
+            <!-- Step 2 Card -->
+            <div class="static-step-card">
+                <h4>Step 2: Security Validation</h4>
+                <p>After clicking the blue action button, allow 5 to 10 seconds for initialization and then click <strong>Download anyway</strong>.</p>
+                <img src="https://i.ibb.co/Kxss75Cv/IMG-20260617-123621-719.jpg" class="static-img" alt="Step 2 Preview" loading="lazy">
+            </div>
+
+            <!-- Step 3 Card -->
+            <div class="static-step-card">
+                <h4>Step 3: Verification Details</h4>
+                <p>Launch the downloaded application package. If an installation alert pops up, tap on <strong>More details</strong>.</p>
+                <img src="https://i.ibb.co/bgkW71cb/IMG-20260617-124110-378.jpg" class="static-img" alt="Step 3 Preview" loading="lazy">
+            </div>
+
+            <!-- Step 4 Card -->
+            <div class="static-step-card">
+                <h4>Step 4: Finalize Execution</h4>
+                <p>Expand the dropdown prompt and select either <strong>Install without scanning</strong> or <strong>Install anyway</strong> to finish up.</p>
+                <img src="https://i.ibb.co/NdZ2fz1p/IMG-20260617-123446-821.jpg" class="static-img" alt="Step 4 Preview" loading="lazy">
+            </div>
+        </div>
+    </div>
+
+    <!-- Persistent Floating Brand Footer Banner -->
+    <div class="brand-footer-banner">
+        <i class="fa-solid fa-code-branch" style="color: var(--accent-color); margin-right: 5px;"></i> Application Developed by: <strong>Muhammad Naeem</strong>
+    </div>
+
+    <!-- Application Operational Controller Logic -->
+    <script>
+        const structuralDataset = [
+            {
+                title: "1. Download Initialization",
+                text: "Click the download asset link and choose the primary application file titled 'Hafiz sweets lal khooh.1'.",
+                src: "https://i.ibb.co/8nkjF6Lw/IMG-20260617-123603-054.jpg"
+            },
+            {
+                title: "2. Bypass Gateway",
+                text: "After clicking the blue button trigger, wait 5 to 10 seconds for the system response, then select 'Download anyway'.",
+                src: "https://i.ibb.co/Kxss75Cv/IMG-20260617-123621-719.jpg"
+            },
+            {
+                title: "3. App Deployment Alert",
+                text: "Open the downloaded file. When the security prompt displays an alert, click on 'More details' immediately.",
+                src: "https://i.ibb.co/bgkW71cb/IMG-20260617-124110-378.jpg"
+            },
+            {
+                title: "4. Authorization & Finish",
+                text: "Inside the details window, choose 'Install without scanning' or 'Install anyway' to complete the installation layout.",
+                src: "https://i.ibb.co/NdZ2fz1p/IMG-20260617-123446-821.jpg"
+            }
+        ];
+
+        let indexPointer = 0;
+
+        function refreshStepInterface() {
+            const wrapper = document.getElementById('dynamicStageRender');
+            const metrics = document.getElementById('stepCounterMetric');
+            const backwardBtn = document.getElementById('backBtnAction');
+            const forwardBtn = document.getElementById('nextBtnAction');
+            const currentItem = structuralDataset[indexPointer];
+
+            // Render dynamic slide structural nodes
+            wrapper.innerHTML = `
+                <h2>${currentItem.title}</h2>
+                <p style="font-size:0.88rem; color:#4a5568; line-height:1.4; min-height:40px;">${currentItem.text}</p>
+                <div class="img-container">
+                    <img src="${currentItem.src}" class="guide-img" alt="Step Visual Process Asset">
+                </div>
+            `;
+
+            metrics.innerText = `${indexPointer + 1} / ${structuralDataset.length}`;
+
+            // Control visibility states of buttons safely
+            backwardBtn.style.visibility = (indexPointer === 0) ? 'hidden' : 'visible';
+
+            if (indexPointer === structuralDataset.length - 1) {
+                forwardBtn.innerHTML = `Got It, Open App <i class="fa-solid fa-circle-check"></i>`;
+                forwardBtn.style.background = "#e67e22";
+            } else {
+                forwardBtn.innerHTML = `Next Step <i class="fa-solid fa-chevron-right"></i>`;
+                forwardBtn.style.background = "#2ecc71";
+            }
+        }
+
+        function navigateNextStep() {
+            if (indexPointer < structuralDataset.length - 1) {
+                indexPointer++;
+                refreshStepInterface();
+            } else {
+                document.getElementById('popupGuideManager').style.display = 'none';
+            }
+        }
+
+        function navigatePreviousStep() {
+            if (indexPointer > 0) {
+                indexPointer--;
+                refreshStepInterface();
+            }
+        }
+
+        function goToDownloadArea() {
+            const anchorElement = document.getElementById('targetDownloadAnchor');
+            anchorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Initialize execution on runtime ready status
+        window.onload = function() {
+            refreshStepInterface();
+        };
+    </script>
+</body>
+                  </html>
